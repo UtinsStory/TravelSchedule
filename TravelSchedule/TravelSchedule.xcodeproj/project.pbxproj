@@ -17,6 +17,13 @@
 		BFDAE4052D0849F600ECAA6F /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = BFDAE4042D0849F600ECAA6F /* openapi.yaml */; };
 		BFDAE4082D084AB300ECAA6F /* NearestStationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4072D084AB300ECAA6F /* NearestStationService.swift */; };
 		BFDAE40A2D08522900ECAA6F /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4092D08522900ECAA6F /* SearchService.swift */; };
+		BFDAE40C2D0AE6AC00ECAA6F /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE40B2D0AE6AC00ECAA6F /* ScheduleService.swift */; };
+		BFDAE40F2D0AEB8D00ECAA6F /* ThreadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE40E2D0AEB8D00ECAA6F /* ThreadService.swift */; };
+		BFDAE4112D0AECB500ECAA6F /* CopyrightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4102D0AECB500ECAA6F /* CopyrightService.swift */; };
+		BFDAE4132D0AEDF000ECAA6F /* StationsListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4122D0AEDF000ECAA6F /* StationsListService.swift */; };
+		BFDAE4152D0AEECB00ECAA6F /* NearestSettlementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4142D0AEECB00ECAA6F /* NearestSettlementService.swift */; };
+		BFDAE4172D0AEFE400ECAA6F /* CarrierService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4162D0AEFE400ECAA6F /* CarrierService.swift */; };
+		BFDAE41A2D0AF1A700ECAA6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDAE4192D0AF1A700ECAA6F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,13 @@
 		BFDAE4042D0849F600ECAA6F /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
 		BFDAE4072D084AB300ECAA6F /* NearestStationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearestStationService.swift; sourceTree = "<group>"; };
 		BFDAE4092D08522900ECAA6F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		BFDAE40B2D0AE6AC00ECAA6F /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
+		BFDAE40E2D0AEB8D00ECAA6F /* ThreadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadService.swift; sourceTree = "<group>"; };
+		BFDAE4102D0AECB500ECAA6F /* CopyrightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyrightService.swift; sourceTree = "<group>"; };
+		BFDAE4122D0AEDF000ECAA6F /* StationsListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsListService.swift; sourceTree = "<group>"; };
+		BFDAE4142D0AEECB00ECAA6F /* NearestSettlementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearestSettlementService.swift; sourceTree = "<group>"; };
+		BFDAE4162D0AEFE400ECAA6F /* CarrierService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierService.swift; sourceTree = "<group>"; };
+		BFDAE4192D0AF1A700ECAA6F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +89,12 @@
 			children = (
 				BFDAE4072D084AB300ECAA6F /* NearestStationService.swift */,
 				BFDAE4092D08522900ECAA6F /* SearchService.swift */,
+				BFDAE40B2D0AE6AC00ECAA6F /* ScheduleService.swift */,
+				BFDAE40E2D0AEB8D00ECAA6F /* ThreadService.swift */,
+				BFDAE4102D0AECB500ECAA6F /* CopyrightService.swift */,
+				BFDAE4122D0AEDF000ECAA6F /* StationsListService.swift */,
+				BFDAE4142D0AEECB00ECAA6F /* NearestSettlementService.swift */,
+				BFDAE4162D0AEFE400ECAA6F /* CarrierService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -82,6 +102,7 @@
 		BFDAE3F22D08486500ECAA6F /* TravelSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				BFDAE4182D0AF19700ECAA6F /* Helpers */,
 				BFDAE3ED2D08486500ECAA6F /* Preview Content */,
 				BFDAE3EE2D08486500ECAA6F /* Services */,
 				BFDAE3EF2D08486500ECAA6F /* Assets.xcassets */,
@@ -89,6 +110,14 @@
 				BFDAE3F12D08486500ECAA6F /* TravelScheduleApp.swift */,
 			);
 			path = TravelSchedule;
+			sourceTree = "<group>";
+		};
+		BFDAE4182D0AF19700ECAA6F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BFDAE4192D0AF1A700ECAA6F /* Constants.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,10 +203,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFDAE4172D0AEFE400ECAA6F /* CarrierService.swift in Sources */,
+				BFDAE41A2D0AF1A700ECAA6F /* Constants.swift in Sources */,
 				BFDAE3F52D08486500ECAA6F /* ContentView.swift in Sources */,
+				BFDAE40C2D0AE6AC00ECAA6F /* ScheduleService.swift in Sources */,
 				BFDAE40A2D08522900ECAA6F /* SearchService.swift in Sources */,
+				BFDAE4152D0AEECB00ECAA6F /* NearestSettlementService.swift in Sources */,
 				BFDAE4082D084AB300ECAA6F /* NearestStationService.swift in Sources */,
 				BFDAE3F62D08486500ECAA6F /* TravelScheduleApp.swift in Sources */,
+				BFDAE40F2D0AEB8D00ECAA6F /* ThreadService.swift in Sources */,
+				BFDAE4132D0AEDF000ECAA6F /* StationsListService.swift in Sources */,
+				BFDAE4112D0AECB500ECAA6F /* CopyrightService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

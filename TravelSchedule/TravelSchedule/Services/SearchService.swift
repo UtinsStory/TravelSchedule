@@ -12,12 +12,9 @@ typealias SearchResponse = Components.Schemas.SearchResponse
 
 protocol SearchServiceProtocol {
     func searchSchedule(
-        apiKey:String,
         from: String,
         to: String,
-        format: String?,
-        lang: String?,
-        date: String?
+        date: String
     ) async throws -> SearchResponse
 }
 
@@ -31,13 +28,11 @@ final class SearchService: SearchServiceProtocol {
       self.apikey = apikey
     }
     
-    func searchSchedule(apiKey: String, from: String, to: String, format: String?, lang: String?, date: String?) async throws -> SearchResponse {
+    func searchSchedule(from: String, to: String, date: String) async throws -> SearchResponse {
         let response = try await client.searchRoutes(query: .init(
-            apikey: apiKey,
+            apikey: apikey,
             from: from,
             to: to,
-            format: format,
-            lang: lang,
             date: date))
         
         return try response.ok.body.json
