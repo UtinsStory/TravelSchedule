@@ -11,31 +11,40 @@ import OpenAPIURLSession
 struct ContentView: View {
     var body: some View {
         VStack {
+            
             Button("Get nearest stations test") {
                 testNearestStationsService()
             }
             Button("Search test") {
                 testSearchService()
             }
+            .padding()
             Button("Schedule test") {
                 testScheduleService()
             }
+            .padding()
             Button("Thread test") {
                 testThreadService()
             }
+            .padding()
             Button("Copyright test") {
                 testCopyrightService()
             }
+            .padding()
             Button("Get stations list test") {
                 testStationsListService()
             }
+            .padding()
             Button("Get nearest settlement test") {
                 testNearestSettlementService()
             }
+            .padding()
             Button("Get carrier info test") {
                 testCarrierService()
             }
+            .padding()
         }
+        .buttonStyle(.borderedProminent)
     }
     
     func testNearestStationsService() {
@@ -180,6 +189,7 @@ struct ContentView: View {
             }
         }
     }
+    
 }
 
 #Preview {
