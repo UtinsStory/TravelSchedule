@@ -13,72 +13,146 @@ enum SelectionType {
     case find
 }
 struct ScheduleView: View {
-    @Binding var path: NavigationPath
-    @State private var from = "Откуда"
-    @State private var to = "Куда"
-    @State private var isClicked = false
-    @State private var isFindButtonTapped = false
+    @State private var fromStation = ""
+    @State private var toStation = ""
+    @State private var path: [Destination] = []
+    @StateObject var citiesViewModel = CitiesViewModel()
+    @StateObject var tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
+    @Binding var showTabBar: Bool
     
     var body: some View {
-        VStack {
-            Spacer()
-            ZStack() {
-                Rectangle()
-                    .fill(.ypBlue)
-                HStack(spacing: 16) {
-                    VStack {
-                        Spacer()
-                        NavigationLink(value: SelectionType.departure) {
-                            FromToTextView(type: $from)
+        NavigationStack(path: $path) {
+            VStack {
+                Spacer()
+                ZStack {
+                    Rectangle()
+                        .fill(Color.ypBlue)
+                        .cornerRadius(20)
+                        .frame(height: 128)
+                    HStack {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.ypWhiteUniversal)
+                                .frame(height: 100)
+                            VStack {
+                                TextField("Откуда", text: $fromStation, prompt: Text("Откуда").foregroundColor(.ypGray))
+                                    .padding(.leading, 10)
+                                    .frame(height: 40)
+                                    .background(Color.ypWhiteUniversal)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(.ypBlackUniversal)
+                                    .onTapGesture {
+                                        showTabBar = false
+                                        path.append(.cityListFrom)
+                                    }
+                                
+                                TextField("Куда", text: $toStation, prompt: Text("Куда").foregroundColor(.ypGray))
+                                    .padding(.leading, 10)
+                                    .frame(height: 40)
+                                    .background(Color.ypWhiteUniversal)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(.ypBlackUniversal)
+                                    .onTapGesture {
+                                        showTabBar = false
+                                        path.append(.cityListTo)
+                                    }
+                            }
                         }
-                        Spacer()
-                        NavigationLink(value: SelectionType.arrival) {
-                            FromToTextView(type: $to)
+                        .cornerRadius(20)
+                        .padding(.leading, 20)
+                        Button(action: {
+                            swap(&fromStation, &toStation)
+                        }) {
+                            Image("ReverseButton")
+                                .resizable()
+                                .frame(width: 36, height: 36)
+                                .buttonStyle(RotateButtonStyle())
+                                .padding(10)
                         }
                         Spacer()
                     }
-                    .frame(height: 96)
-                    .background(Rectangle()
-                        .fill(.ypWhiteUniversal)
-                        .cornerRadius(20))
-                    Button {
-                        isClicked.toggle()
-                        swap(&from, &to)
-                    } label: {
-                        Image("ReverseButton")
-                    }
-                    .frame(width: 36, height: 36)
-                    .background(Circle().fill(Color.ypWhiteUniversal))
                 }
-                .padding()
-            }
-            .frame(height: 128)
-            .cornerRadius(20)
-            .padding([.leading, .trailing], 16)
-            
-            NavigationLink(value: SelectionType.find) {
-                Text("Поиск")
-                    .foregroundColor(.ypWhiteUniversal)
-                    .font(.system(size: 17, weight: .bold))
+                .padding(16)
+                if !fromStation.isEmpty && !toStation.isEmpty {
+                    NavigationLink(value: Destination.tripsListView) {
+                        Text("Найти")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.ypBlue)
+                            .cornerRadius(16)
+                    }
                     .frame(width: 150, height: 60)
-                    .background(.ypBlue)
+                    .background(Color.ypBlue)
+                    .foregroundColor(.white)
                     .cornerRadius(16)
-                    .padding(.vertical, 16)
-                    .opacity(from == "Откуда" || to == "Куда" || from == "Куда" || to == "Откуда" ? 0 : 1)
+                }
+                Spacer()
             }
-            Spacer()
-            Rectangle().frame(height: 1)
-                .foregroundStyle(.ypGray)
-                .padding(.bottom, 10)
-        }
-        .background(.ypWhite)
-        .navigationDestination(for: SelectionType.self) { type in
-            switch type {
-            case .departure: SearchCityView(path: $path, from: $from, to: $to, selectionType: .departure)
-            case .arrival: SearchCityView(path: $path, from: $from, to: $to, selectionType: .arrival)
-            case .find: RoutesListView(title: "\(from) → \(to)")
+            .onAppear {
+                showTabBar = true
+            }
+            .navigationDestination(for: Destination.self) { destination in
+                switch destination {
+                case .cityListFrom:
+                    CityListView(selectAction: { selectedStation in
+                        fromStation = selectedStation
+                        showTabBar = true
+                        path.removeLast()
+                    }, path: $path)
+                    .onAppear {
+                        showTabBar = true
+                    }
+                case .cityListTo:
+                    CityListView(selectAction: { selectedStation in
+                        toStation = selectedStation
+                        showTabBar = true
+                        path.removeLast()
+                    }, path: $path)
+                    .onAppear {
+                        showTabBar = true
+                    }
+                case .stationList(let city):
+                    StationListView(stations: citiesViewModel.cities.first(where: { $0.title == city })?.stations ?? [], selectAction: { station in
+                        if path.contains(.cityListFrom) {
+                            fromStation = station
+                        } else {
+                            toStation = station
+                        }
+                        showTabBar = true
+                        path = []
+                    })
+                    .onAppear {
+                        showTabBar = true
+                    }
+                case .tripsListView:
+                    let fromCity = citiesViewModel.city(for: fromStation)
+                    let toCity = citiesViewModel.city(for: toStation)
+                    TripsListView(viewModel: tripsViewModel, fromCity: fromCity, fromStation: fromStation, toCity: toCity, toStation: toStation, path: $path)
+                        .onAppear {
+                            showTabBar = true
+                        }
+                case .tripFilterView:
+                    TripFilterView(viewModel: tripsViewModel)
+                        .onAppear {
+                            showTabBar = true
+                        }
+                case .carrierDetail(let carrier):
+                    CarrierInfoView(carrier: carrier)
+                        .onAppear {
+                            showTabBar = true
+                        }
+                }
             }
         }
+        .background(Color.ypWhite)
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct RotateButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .rotationEffect(configuration.isPressed ? -Angle(radians: .pi) : .zero)
     }
 }
 

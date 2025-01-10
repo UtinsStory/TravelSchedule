@@ -28,6 +28,7 @@ struct MainScreenView: View {
                     .tag(1)
             }
         }
+        .tint(.ypBlackUniversal)
     }
 }
 
