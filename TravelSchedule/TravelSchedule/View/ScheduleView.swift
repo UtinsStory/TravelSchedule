@@ -7,16 +7,11 @@
 
 import SwiftUI
 
-enum SelectionType {
-    case departure
-    case arrival
-    case find
-}
 struct ScheduleView: View {
     @State private var fromStation = ""
     @State private var toStation = ""
     @State private var path: [Destination] = []
-    @StateObject var citiesViewModel = CitiesViewModel()
+    @StateObject var citiesViewModel = StationsViewModel()
     @StateObject var tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
     @Binding var showTabBar: Bool
     
@@ -64,8 +59,8 @@ struct ScheduleView: View {
                             swap(&fromStation, &toStation)
                         }) {
                             Image("ReverseButton")
-                                .resizable()
                                 .frame(width: 36, height: 36)
+                                .background(Circle().fill(Color.white))
                                 .buttonStyle(RotateButtonStyle())
                                 .padding(10)
                         }
@@ -81,6 +76,7 @@ struct ScheduleView: View {
                             .background(Color.ypBlue)
                             .cornerRadius(16)
                     }
+                    
                     .frame(width: 150, height: 60)
                     .background(Color.ypBlue)
                     .foregroundColor(.white)
@@ -112,7 +108,7 @@ struct ScheduleView: View {
                         showTabBar = true
                     }
                 case .stationList(let city):
-                    StationListView(stations: citiesViewModel.cities.first(where: { $0.title == city })?.stations ?? [], selectAction: { station in
+                    StationsListView(stations: citiesViewModel.cities.first(where: { $0.title == city })?.stations ?? [], selectAction: { station in
                         if path.contains(.cityListFrom) {
                             fromStation = station
                         } else {
@@ -142,13 +138,14 @@ struct ScheduleView: View {
                             showTabBar = true
                         }
                 }
+                
             }
+            
         }
         .background(Color.ypWhite)
         .edgesIgnoringSafeArea(.all)
     }
 }
-
 struct RotateButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -157,5 +154,5 @@ struct RotateButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    ScheduleView(path: .constant(NavigationPath()))
+    MainScreenView()
 }

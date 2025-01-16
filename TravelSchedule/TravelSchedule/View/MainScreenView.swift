@@ -8,27 +8,43 @@
 import SwiftUI
 
 struct MainScreenView: View {
-    @State private var selectedTab: Int = 0
-    @State private var path = NavigationPath()
+    @State private var showTabBar = true
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some View {
         NavigationStack {
-            TabView(selection: $selectedTab) {
-                ScheduleView(path: $path)
+            TabView {
+                ScheduleView(showTabBar: $showTabBar)
                     .tabItem {
                         Image("ScheduleTabBarActive")
                             .renderingMode(.template)
                     }
-                    .tag(0)
-                SettingsView()
+                SettingsView(isDarkMode: $isDarkMode)
                     .tabItem {
                         Image("SettingsTabBarActive")
                             .renderingMode(.template)
                     }
-                    .tag(1)
+            }
+            .onAppear(){
+                UITabBar.appearance().backgroundColor = .ypWhite
+            }
+            .tint(.ypBlack)
+            .onChange(of: showTabBar) { newValue in
+                if !newValue {
+                    hideTabBar()
+                } else {
+                    showTabBarAgain()
+                }
             }
         }
-        .tint(.ypBlackUniversal)
+    }
+    
+    private func hideTabBar() {
+        UITabBar.appearance().isHidden = true
+    }
+    
+    private func showTabBarAgain() {
+        UITabBar.appearance().isHidden = false
     }
 }
 

@@ -8,21 +8,21 @@
 import Foundation
 
 final class CitiesViewModel: ObservableObject {
-    @Published var cities: [CityModel]
+    @Published var cities: [City]
     
     init() {
         self.cities = [
-            CityModel(title: "Москва", stations: [
+            City(title: "Москва", stations: [
                 Station(title: "Курский Вокзал"),
                 Station(title: "Казанский Вокзал"),
                 Station(title: "Киевский Вокзал"),
                 Station(title: "Ленинградский Вокзал")]),
-            CityModel(title: "Санкт-Петербург", stations: [
+            City(title: "Санкт-Петербург", stations: [
                 Station(title: "Московский Вокзал"),
                 Station(title: "Витебский Вокзал"),
                 Station(title: "Ладожский Вокзал"),
                 Station(title: "Балтийский Вокзал")]),
-            CityModel(title: "Сочи", stations: [
+            City(title: "Сочи", stations: [
                 Station(title: "Вокзал Сочи"),
                 Station(title: "Вокзал Адлер"),
                 Station(title: "Вокзал Лазаревская")])
