@@ -14,16 +14,20 @@ struct MainScreenView: View {
     var body: some View {
         NavigationStack {
             TabView {
-                ScheduleView(showTabBar: $showTabBar)
-                    .tabItem {
-                        Image("ScheduleTabBarActive")
-                            .renderingMode(.template)
-                    }
-                SettingsView(isDarkMode: $isDarkMode)
-                    .tabItem {
-                        Image("SettingsTabBarActive")
-                            .renderingMode(.template)
-                    }
+                Group {
+                    ScheduleView(showTabBar: $showTabBar)
+                        .tabItem {
+                            Image("ScheduleTabBarActive")
+                                .renderingMode(.template)
+                        }
+                    SettingsView(isDarkMode: $isDarkMode)
+                        .tabItem {
+                            Image("SettingsTabBarActive")
+                                .renderingMode(.template)
+                        }
+                }
+                .toolbarBackground(.visible, for: .tabBar)
+                .toolbarBackground(Color.ypWhite, for: .tabBar)
             }
             .onAppear(){
                 UITabBar.appearance().backgroundColor = .ypWhite

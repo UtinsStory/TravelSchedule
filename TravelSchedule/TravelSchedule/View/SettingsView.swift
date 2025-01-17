@@ -36,8 +36,6 @@ struct SettingsView: View {
             Text("Версия 1.0 Beta")
                 .font(.system(size: 12))
                 .padding()
-            
-            Divider()
         }
         .padding()
         .background(.ypWhite)
