@@ -8,8 +8,8 @@
 import Foundation
 
 final class TripsViewModel: ObservableObject {
-    @Published var trips: [Trip] = []
-    @Published var filteredTrips: [Trip] = []
+    @Published var trips: [TripModel] = []
+    @Published var filteredTrips: [TripModel] = []
     @Published var filtersApplied: Bool = false
     
     private let carriersViewModel: CarriersViewModel
@@ -35,7 +35,7 @@ final class TripsViewModel: ObservableObject {
         filtersApplied = !selectedTimes.isEmpty || showTransfers != nil
     }
     
-    private func tripMatchesInterval(_ trip: Trip, interval: TimeIntervalEnum) -> Bool {
+    private func tripMatchesInterval(_ trip: TripModel, interval: TimeIntervalEnum) -> Bool {
         guard let departureTime = parseTime(trip.departureTime) else {
             return false
         }

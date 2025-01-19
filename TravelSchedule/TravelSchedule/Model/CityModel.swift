@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct City: Identifiable {
+struct CityModel: Identifiable {
     let id = UUID()
     let title: String
-    let stations: [Station]
+    let stations: [StationModel]
 }

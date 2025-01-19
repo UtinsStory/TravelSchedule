@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CityListView: View {
     @State private var searchString = ""
-    @StateObject var viewModel = StationsViewModel()
-    var selectAction: (String) -> Void
+    @StateObject private var viewModel = StationsViewModel()
+    let selectAction: (String) -> Void
     @Binding var path: [Destination]
     
     var body: some View {
@@ -51,7 +51,7 @@ struct CityListView: View {
         .navigationTitle("Выбор Города")
     }
     
-    var filteredCities: [City] {
+    var filteredCities: [CityModel] {
         viewModel.cities.filter { city in
             searchString.isEmpty || city.title.localizedCaseInsensitiveContains(searchString)
         }

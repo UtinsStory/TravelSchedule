@@ -16,45 +16,45 @@ enum TimeIntervalEnum: String, CaseIterable {
 
 enum MockData {
     static let carriers: [CarrierModel] = [
-        CarrierModel(name: "РЖД", logo: "RZD", email: "info@rzd.ru", phone: "+74952222222"),
-        CarrierModel(name: "ФГК", logo: "FGK", email: "info@fgk.ru", phone: "+74953333333"),
-        CarrierModel(name: "Урал Логистика", logo: "URAL", email: "info@ural.ru", phone: "+74954444444")
+        CarrierModel(name: "РЖД", logoName: "RZD", email: "info@rzd.ru", phone: "+74952222222"),
+        CarrierModel(name: "ФГК", logoName: "FGK", email: "info@fgk.ru", phone: "+74953333333"),
+        CarrierModel(name: "Урал Логистика", logoName: "URAL", email: "info@ural.ru", phone: "+74954444444")
     ]
     
-    static let trips: [Trip] = {
+    static let trips: [TripModel] = {
         let rzd = carriers.first { $0.name == "РЖД" }!
         let fgk = carriers.first { $0.name == "ФГК" }!
         let ural = carriers.first { $0.name == "Урал Логистика" }!
         
         return [
-            Trip(departureTime: "08:00", arrivalTime: "12:00", travelTime: "4 часа", carrier: rzd, hasTransfers: false, date: "23.04.2024"),
-            Trip(departureTime: "09:00", arrivalTime: "13:00", travelTime: "4 часа", carrier: fgk, hasTransfers: true, date: "24.04.2024"),
-            Trip(departureTime: "10:00", arrivalTime: "14:00", travelTime: "4 часа", carrier: ural, hasTransfers: false, date: "25.04.2024"),
-            Trip(departureTime: "11:00", arrivalTime: "15:00", travelTime: "4 часа", carrier: rzd, hasTransfers: true, date: "26.04.2024")
+            TripModel(departureTime: "08:00", arrivalTime: "12:00", travelTime: "4 часа", carrier: rzd, hasTransfers: false, date: "23.04.2024"),
+            TripModel(departureTime: "09:00", arrivalTime: "13:00", travelTime: "4 часа", carrier: fgk, hasTransfers: true, date: "24.04.2024"),
+            TripModel(departureTime: "10:00", arrivalTime: "14:00", travelTime: "4 часа", carrier: ural, hasTransfers: false, date: "25.04.2024"),
+            TripModel(departureTime: "11:00", arrivalTime: "15:00", travelTime: "4 часа", carrier: rzd, hasTransfers: true, date: "26.04.2024")
         ]
     }()
     
-    static let cities: [City] = [
-            City(title: "Москва", stations: [
-                Station(title: "Курский Вокзал"),
-                Station(title: "Казанский Вокзал"),
-                Station(title: "Киевский Вокзал"),
-                Station(title: "Ленинградский Вокзал")
-            ]),
-            City(title: "Санкт-Петербург", stations: [
-                Station(title: "Московский Вокзал"),
-                Station(title: "Витебский Вокзал"),
-                Station(title: "Ладожский Вокзал"),
-                Station(title: "Балтийский Вокзал")
-            ]),
-            City(title: "Сочи", stations: [
-                Station(title: "Вокзал Сочи"),
-                Station(title: "Вокзал Адлер"),
-                Station(title: "Вокзал Лазаревская")
-            ]),
-            City(title: "Краснодар", stations: [
-                Station(title: "Краснодар I"),
-                Station(title: "Краснодар II")
-            ])
-            ]
+    static let cities: [CityModel] = [
+        CityModel(title: "Москва", stations: [
+            StationModel(title: "Курский Вокзал"),
+            StationModel(title: "Казанский Вокзал"),
+            StationModel(title: "Киевский Вокзал"),
+            StationModel(title: "Ленинградский Вокзал")
+        ]),
+        CityModel(title: "Санкт-Петербург", stations: [
+            StationModel(title: "Московский Вокзал"),
+            StationModel(title: "Витебский Вокзал"),
+            StationModel(title: "Ладожский Вокзал"),
+            StationModel(title: "Балтийский Вокзал")
+        ]),
+        CityModel(title: "Сочи", stations: [
+            StationModel(title: "Вокзал Сочи"),
+            StationModel(title: "Вокзал Адлер"),
+            StationModel(title: "Вокзал Лазаревская")
+        ]),
+        CityModel(title: "Краснодар", stations: [
+            StationModel(title: "Краснодар I"),
+            StationModel(title: "Краснодар II")
+        ])
+    ]
 }

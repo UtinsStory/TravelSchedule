@@ -8,7 +8,7 @@
 import Foundation
 
 final class StationsViewModel: ObservableObject {
-    @Published var cities: [City] = []
+    @Published var cities: [CityModel] = []
     
     init() {
         loadCities()

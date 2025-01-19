@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TripRowView: View {
-    var trip: Trip
+    var trip: TripModel
     
     var body: some View {
         
@@ -19,7 +19,7 @@ struct TripRowView: View {
                 .cornerRadius(24)
             VStack{
                 HStack{
-                    Image(trip.carrier.logo)
+                    Image(trip.carrier.logoName)
                         .resizable()
                         .cornerRadius(12)
                         .frame(width: 38, height: 38)

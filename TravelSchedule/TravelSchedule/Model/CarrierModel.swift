@@ -9,7 +9,7 @@ import Foundation
 
 struct CarrierModel: Hashable {
     let name: String
-    let logo: String
+    let logoName: String
     let email: String
     let phone: String
 }

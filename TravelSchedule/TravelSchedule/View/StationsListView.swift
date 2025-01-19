@@ -10,7 +10,7 @@ import SwiftUI
 struct StationsListView: View {
     @State private var searchString = ""
     @State private var selectedStation: String?
-    var stations: [Station]
+    var stations: [StationModel]
     var selectAction: (String) -> Void
     
     var body: some View {
@@ -53,7 +53,7 @@ struct StationsListView: View {
         .navigationTitle("Выбор Станции")
     }
     
-    var filteredStations: [Station] {
+    var filteredStations: [StationModel] {
         stations.filter { station in
             searchString.isEmpty || station.title.localizedCaseInsensitiveContains(searchString)
         }

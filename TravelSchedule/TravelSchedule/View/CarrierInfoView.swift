@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CarrierInfoView: View {
-    var carrier: CarrierModel
+    let carrier: CarrierModel
     
     var body: some View {
         ZStack {
-            Color.ypWhite.edgesIgnoringSafeArea(.all)
+            Color.ypWhite.ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
-                Image(carrier.logo)
+                Image(carrier.logoName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 343, height: 104)
@@ -62,7 +62,7 @@ struct CarrierInfoView: View {
 
 struct CarrierDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let carrier = CarrierModel(name: "ОАО РЖД", logo: "RZD", email: "example@example.com", phone: "+1234567890")
+        let carrier = CarrierModel(name: "ОАО РЖД", logoName: "RZD", email: "example@example.com", phone: "+1234567890")
         return CarrierInfoView(carrier: carrier)
     }
 }

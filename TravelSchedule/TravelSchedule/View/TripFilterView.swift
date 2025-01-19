@@ -11,7 +11,7 @@ struct TripFilterView: View {
     @ObservedObject var viewModel: TripsViewModel
     
     @State private var selectedTimes: Set<TimeIntervalEnum> = []
-    @State private var showTransfers: Bool? = nil
+    @State private var showTransfers: Bool?
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
