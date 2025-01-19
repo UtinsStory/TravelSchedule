@@ -49,7 +49,7 @@ struct SearchBarView: View {
                 )
             }
             .frame(height: 37)
-            .background(Color(red: 118.0/255, green: 118.0/255, blue: 128.0/255).opacity(0.12))
+            .background(.ypLightGray)
             .cornerRadius(10)
             
             if isSearching {
