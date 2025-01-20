@@ -36,10 +36,9 @@ struct ScheduleView: View {
                                     .background(Color.ypWhiteUniversal)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.ypBlackUniversal)
-                                    .onTapGesture {
-                                        showTabBar = false
-                                        path.append(.cityListFrom)
-                                    }
+                                    .simultaneousGesture(TapGesture().onEnded { showTabBar = false
+                                        path.append(.cityListFrom)})
+                                    
                                 
                                 TextField("Куда", text: $toStation, prompt: Text("Куда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
@@ -47,10 +46,9 @@ struct ScheduleView: View {
                                     .background(Color.ypWhiteUniversal)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.ypBlackUniversal)
-                                    .onTapGesture {
-                                        showTabBar = false
-                                        path.append(.cityListTo)
-                                    }
+                                    .simultaneousGesture(TapGesture().onEnded { showTabBar = false
+                                        path.append(.cityListTo)})
+
                             }
                         }
                         .cornerRadius(20)

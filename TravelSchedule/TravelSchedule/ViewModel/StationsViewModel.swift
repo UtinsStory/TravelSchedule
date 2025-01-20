@@ -15,7 +15,7 @@ final class StationsViewModel: ObservableObject {
     }
     
     func loadCities() {
-        cities = MockData.cities
+            cities = MockData.cities
     }
     
     func city(for station: String) -> String {

@@ -8,31 +8,32 @@
 import SwiftUI
 
 struct ErrorView: View {
-    var imageName: String
-    var message: String
+    @State var errorType: ErrorType
     
     var body: some View {
-        VStack {
-            Image(imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 223, height: 223)
-            
-            Text(message)
-                .font(.system(size: 24, weight: .bold))
-                .foregroundColor(.ypBlack)
+        VStack(alignment: .center, spacing: 16) {
+            switch errorType {
+            case .noInternet:
+                Image(.noInternet)
+                    .resizable()
+                    .frame(width: 223, height: 223)
+                    .scaledToFit()
+                Text(errorType.rawValue)
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.ypBlack)
+            case .serverError:
+                Image(.serverError)
+                    .resizable()
+                    .frame(width: 223, height: 223)
+                    .scaledToFit()
+                Text(errorType.rawValue)
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.ypBlack)
+            }
         }
-        .background(.ypWhite)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: CustomBackButton())
     }
 }
 
-struct ErrorView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ErrorView(imageName: "no_internet", message: "Нет интернета")
-            ErrorView(imageName: "server_error", message: "Ошибка Сервера")
-        }
-    }
+#Preview {
+    ErrorView(errorType: .noInternet)
 }

@@ -11,6 +11,8 @@
 		BF5380072D2C066700575C64 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5380062D2C066700575C64 /* MainScreenView.swift */; };
 		BF5380102D2C0D9700575C64 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53800F2D2C0D9700575C64 /* ScheduleView.swift */; };
 		BF5380122D2C0DA400575C64 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5380112D2C0DA400575C64 /* SettingsView.swift */; };
+		BF85BC602D3E694700ED40C9 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */; };
+		BF85BC632D3E6CC300ED40C9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */; };
 		BFB7E0B92D311E8100EEC20B /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0B82D311E8100EEC20B /* CitiesViewModel.swift */; };
 		BFB7E0BE2D311F9700EEC20B /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0BD2D311F9700EEC20B /* CityModel.swift */; };
 		BFB7E0C12D31235200EEC20B /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0C02D31235200EEC20B /* SearchBarView.swift */; };
@@ -57,6 +59,8 @@
 		BF5380062D2C066700575C64 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		BF53800F2D2C0D9700575C64 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		BF5380112D2C0DA400575C64 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
+		BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		BFB7E0B82D311E8100EEC20B /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		BFB7E0BD2D311F9700EEC20B /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		BFB7E0C02D31235200EEC20B /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				BFB7E0C92D312CD200EEC20B /* StationModel.swift */,
 				BFB7E0CF2D312ECC00EEC20B /* TripModel.swift */,
 				BFB7E0D12D312ED900EEC20B /* CarrierModel.swift */,
+				BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 		BFDAE4182D0AF19700ECAA6F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */,
 				BFDAE4192D0AF1A700ECAA6F /* Constants.swift */,
 				BFB7E0C62D312C0600EEC20B /* Destination.swift */,
 				BFB7E0CD2D312EA200EEC20B /* Mock.swift */,
@@ -306,6 +312,7 @@
 			files = (
 				BFB7E0BE2D311F9700EEC20B /* CityModel.swift in Sources */,
 				BFB7E0D02D312ECC00EEC20B /* TripModel.swift in Sources */,
+				BF85BC632D3E6CC300ED40C9 /* Reachability.swift in Sources */,
 				BF5380122D2C0DA400575C64 /* SettingsView.swift in Sources */,
 				BFB7E0DE2D3905EC00EEC20B /* TripsListView.swift in Sources */,
 				BFDAE4172D0AEFE400ECAA6F /* CarrierService.swift in Sources */,
@@ -317,6 +324,7 @@
 				BFB7E0E42D3906C100EEC20B /* CarrierInfoView.swift in Sources */,
 				BF5380102D2C0D9700575C64 /* ScheduleView.swift in Sources */,
 				BFDAE40C2D0AE6AC00ECAA6F /* ScheduleService.swift in Sources */,
+				BF85BC602D3E694700ED40C9 /* ErrorType.swift in Sources */,
 				BFDAE40A2D08522900ECAA6F /* SearchService.swift in Sources */,
 				BFDAE4152D0AEECB00ECAA6F /* NearestSettlementService.swift in Sources */,
 				BFB7E0CE2D312EA200EEC20B /* Mock.swift in Sources */,

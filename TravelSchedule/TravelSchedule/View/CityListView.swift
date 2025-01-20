@@ -12,49 +12,54 @@ struct CityListView: View {
     @StateObject private var viewModel = StationsViewModel()
     let selectAction: (String) -> Void
     @Binding var path: [Destination]
+    let reachability = Reachability()
     
     var body: some View {
-        VStack {
-            SearchBarView(searchText: $searchString)
-            if filteredCities.isEmpty {
-                Spacer()
-                Text("Город не найден")
-                    .foregroundColor(.ypBlack)
-                    .font(.system(size: 24, weight: .bold))
-                    .padding()
-                Spacer()
-            } else {
-                List {
-                    ForEach(filteredCities) { city in
-                        Button(action: {
-                            path.append(.stationList(city: city.title))
-                        }) {
-                            HStack {
-                                Text(city.title)
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.ypBlack)
+        if reachability.isConnectedToNetwork() == true {
+            VStack {
+                SearchBarView(searchText: $searchString)
+                if filteredCities.isEmpty {
+                    Spacer()
+                    Text("Город не найден")
+                        .foregroundColor(.ypBlack)
+                        .font(.system(size: 24, weight: .bold))
+                        .padding()
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(filteredCities) { city in
+                            Button(action: {
+                                path.append(.stationList(city: city.title))
+                            }) {
+                                HStack {
+                                    Text(city.title)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.ypBlack)
+                                }
+                                .contentShape(Rectangle())
                             }
-                            .contentShape(Rectangle())
+                            .buttonStyle(PlainButtonStyle())
+                            .listRowBackground(Color.ypWhite)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .listRowBackground(Color.ypWhite)
+                        .listRowSeparator(.hidden)
                     }
-                    .listRowSeparator(.hidden)
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
             }
+            .background(.ypWhite)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: CustomBackButton())
+            .navigationTitle("Выбор Города")
+        } else {
+            ErrorView(errorType: .noInternet)
         }
-        .background(.ypWhite)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: CustomBackButton())
-        .navigationTitle("Выбор Города")
     }
     
     var filteredCities: [CityModel] {
-        viewModel.cities.filter { city in
-            searchString.isEmpty || city.title.localizedCaseInsensitiveContains(searchString)
-        }
+            viewModel.cities.filter { city in
+                searchString.isEmpty || city.title.localizedCaseInsensitiveContains(searchString)
+            }
     }
 }
 
