@@ -36,5 +36,5 @@ struct StoryView: View {
 }
 
 #Preview {
-    StoryView(story: StoryModel(id: 1, image: "storyImage1", isViewed: false, title: "1", description: "11"))
+    StoryView(story: MockData.stories[0])
 }

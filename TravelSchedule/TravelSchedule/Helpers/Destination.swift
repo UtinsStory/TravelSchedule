@@ -14,13 +14,15 @@ enum Destination: Hashable {
     case tripsListView
     case tripFilterView
     case carrierDetail(CarrierModel)
+    case storiesView
     
     static func == (lhs: Destination, rhs: Destination) -> Bool {
         switch (lhs, rhs) {
         case (.cityListFrom, .cityListFrom),
             (.cityListTo, .cityListTo),
             (.tripsListView, .tripsListView),
-            (.tripFilterView, .tripFilterView):
+            (.tripFilterView, .tripFilterView),
+            (.storiesView, .storiesView):
             return true
         case (.stationList(let lhsCity), .stationList(let rhsCity)):
             return lhsCity == rhsCity
@@ -45,6 +47,8 @@ enum Destination: Hashable {
             hasher.combine("tripFilterView")
         case .carrierDetail(let carrier):
             hasher.combine(carrier)
+        case .storiesView:
+            hasher.combine("storiesView")
         }
     }
 }

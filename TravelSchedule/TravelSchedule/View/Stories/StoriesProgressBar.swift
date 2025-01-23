@@ -2,14 +2,13 @@
 //  StoriesProgressBar.swift
 //  TravelSchedule
 //
-//  Created by Гена Утин on 22.01.2025.
+//  Created by Гена Утин on 23.01.2025.
 //
 
 import SwiftUI
 import Combine
 
 struct StoriesProgressBar: View {
-    
     private let storiesCount: Int
     let timerConfiguration: TimerConfiguration
     @Binding var currentProgress: CGFloat
@@ -21,21 +20,42 @@ struct StoriesProgressBar: View {
         storiesCount: Int,
         timerConfiguration: TimerConfiguration,
         currentProgress: Binding<CGFloat>,
-        onComplete: @escaping () -> Void
+        onComplete: @escaping ()-> Void
     ) {
         self.storiesCount = storiesCount
         self.timerConfiguration = timerConfiguration
         self._currentProgress = currentProgress
-        self._timer = State(initialValue: Self.makeTimer(configuration: timerConfiguration))
+        self.timer = Self.makeTimer(configuration: timerConfiguration)
         self.onComplete = onComplete
     }
     
-    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ProgressBar(numberOfSections: storiesCount, progress: currentProgress)
+            .padding(.init(top: 7, leading: 12, bottom: 12, trailing: 12))
+            .onAppear {
+                timer = Self.makeTimer(configuration: timerConfiguration)
+                cancellable = timer.connect()
+            }
+            .onDisappear {
+                cancellable?.cancel()
+            }
+            .onReceive(timer) { _ in
+                timerTick()
+            }
+    }
+    
+    private func timerTick() {
+        withAnimation {
+            currentProgress = timerConfiguration.nextProgress(progress: currentProgress)
+            if currentProgress >= 1 {
+                onComplete()
+            }
+        }
     }
 }
 
-#Preview {
-    StoriesProgressBar()
+extension StoriesProgressBar {
+    private static func makeTimer(configuration: TimerConfiguration) -> Timer.TimerPublisher {
+        Timer.publish(every: configuration.timerTickInternal, on: .main, in: .common)
+    }
 }
