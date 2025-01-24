@@ -27,11 +27,10 @@ struct ScheduleView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
                         ForEach(stories) { story in
-                            StoryPreview(story: stories)
+                            StoryPreview(story: story)
                                 .onTapGesture {
                                     selectedStory = story
                                     currentStoryIndex = stories.firstIndex(where: { $0.id == story.id }) ?? 0
-                                    currentProgress = CGFloat(currentStoryIndex) / CGFloat(stories.count)
                                     path.append(.storiesView)
                                     isStoriesViewPresented = true
                                 }
@@ -39,7 +38,7 @@ struct ScheduleView: View {
                     }
                     .padding()
                 }
-                .padding(.top, -250)
+                .padding(.top, -310)
                 
                 ZStack {
                     Rectangle()
@@ -87,7 +86,8 @@ struct ScheduleView: View {
                         Spacer()
                     }
                 }
-                .padding(16)
+                .padding()
+                .padding(.top, -120)
                 if !fromStation.isEmpty && !toStation.isEmpty {
                     NavigationLink(value: Destination.tripsListView) {
                         Text("Найти")
