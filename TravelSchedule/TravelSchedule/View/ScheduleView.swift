@@ -6,33 +6,21 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ScheduleView: View {
-    @State private var fromStation = ""
-    @State private var toStation = ""
-    @State private var path: [Destination] = []
-    @ObservedObject var citiesViewModel = CitiesViewModel()
-    @StateObject var tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
-    @Binding var showTabBar: Bool
-    @State private var selectedStory: StoryModel?
-    @State private var currentStoryIndex: Int = 0
-    @State private var stories: [StoryModel] = MockData.stories
-    @State private var isStoriesViewPresented: Bool = false
-    @State private var currentProgress: CGFloat = 0.0
+    @ObservedObject var viewModel = ScheduleViewModel()
     
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $viewModel.path) {
             VStack {
                 Spacer()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
-                        ForEach(stories) { story in
+                        ForEach(viewModel.stories) { story in
                             StoryPreview(story: story)
                                 .onTapGesture {
-                                    selectedStory = story
-                                    currentStoryIndex = stories.firstIndex(where: { $0.id == story.id }) ?? 0
-                                    path.append(.storiesView)
-                                    isStoriesViewPresented = true
+                                    viewModel.selectStory(story)
                                 }
                         }
                     }
@@ -51,31 +39,29 @@ struct ScheduleView: View {
                                 .fill(Color.ypWhiteUniversal)
                                 .frame(height: 100)
                             VStack {
-                                TextField("Откуда", text: $fromStation, prompt: Text("Откуда").foregroundColor(.ypGray))
+                                TextField("Откуда", text: $viewModel.fromStation, prompt: Text("Откуда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
                                     .frame(height: 40)
                                     .background(Color.ypWhiteUniversal)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.ypBlackUniversal)
-                                    .simultaneousGesture(TapGesture().onEnded { showTabBar = false
-                                        path.append(.cityListFrom)})
+                                    .simultaneousGesture(TapGesture().onEnded { viewModel.selectCityList(isFrom: true)})
                                 
                                 
-                                TextField("Куда", text: $toStation, prompt: Text("Куда").foregroundColor(.ypGray))
+                                TextField("Куда", text: $viewModel.toStation, prompt: Text("Куда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
                                     .frame(height: 40)
                                     .background(Color.ypWhiteUniversal)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.ypBlackUniversal)
-                                    .simultaneousGesture(TapGesture().onEnded { showTabBar = false
-                                        path.append(.cityListTo)})
+                                    .simultaneousGesture(TapGesture().onEnded { viewModel.selectCityList(isFrom: false)})
                                 
                             }
                         }
                         .cornerRadius(20)
                         .padding(.leading, 20)
                         Button(action: {
-                            swap(&fromStation, &toStation)
+                            viewModel.swapStations()
                         }) {
                             Image("ReverseButton")
                                 .frame(width: 36, height: 36)
@@ -88,7 +74,7 @@ struct ScheduleView: View {
                 }
                 .padding()
                 .padding(.top, -120)
-                if !fromStation.isEmpty && !toStation.isEmpty {
+                if viewModel.isSearchButtonEnabled {
                     NavigationLink(value: Destination.tripsListView) {
                         Text("Найти")
                             .foregroundColor(.white)
@@ -105,62 +91,57 @@ struct ScheduleView: View {
                 Spacer()
             }
             .onAppear {
-                showTabBar = true
+                viewModel.showTabBar = true
             }
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .cityListFrom:
                     CityListView(selectAction: { selectedStation in
-                        fromStation = selectedStation
-                        showTabBar = true
-                        path.removeLast()
-                    }, path: $path)
+                        viewModel.updateStation(selectedStation, isFrom: true)
+                    }, path: $viewModel.path)
                     .onAppear {
-                        showTabBar = true
+                        viewModel.showTabBar = true
                     }
                 case .cityListTo:
                     CityListView(selectAction: { selectedStation in
-                        toStation = selectedStation
-                        showTabBar = true
-                        path.removeLast()
-                    }, path: $path)
+                        viewModel.updateStation(selectedStation, isFrom: false)
+                    }, path: $viewModel.path)
                     .onAppear {
-                        showTabBar = true
+                        viewModel.showTabBar = true
                     }
                 case .stationList(let city):
-                    StationsListView(stations: citiesViewModel.cities.first(where: { $0.title == city })?.stations ?? [], selectAction: { station in
-                        if path.contains(.cityListFrom) {
-                            fromStation = station
+                    StationsListView(stations: viewModel.citiesViewModelInstance.cities.first(where: { $0.title == city })?.stations ?? [], selectAction: { station in
+                        if viewModel.path.contains(.cityListFrom) {
+                            viewModel.updateStation(station, isFrom: true)
                         } else {
-                            toStation = station
+                            viewModel.updateStation(station, isFrom: false)
                         }
-                        showTabBar = true
-                        path = []
+                        viewModel.resetPath()
                     })
                     .onAppear {
-                        showTabBar = true
+                        viewModel.showTabBar = true
                     }
                 case .tripsListView:
-                    let fromCity = citiesViewModel.city(for: fromStation)
-                    let toCity = citiesViewModel.city(for: toStation)
-                    TripsListView(viewModel: tripsViewModel, fromCity: fromCity, fromStation: fromStation, toCity: toCity, toStation: toStation, path: $path)
+                    let fromCity = viewModel.citiesViewModelInstance.city(for: viewModel.fromStation)
+                    let toCity = viewModel.citiesViewModelInstance.city(for: viewModel.toStation)
+                    TripsListView(viewModel: viewModel.tripsViewModelInstance, fromCity: fromCity, fromStation: viewModel.fromStation, toCity: toCity, toStation: viewModel.toStation, path: $viewModel.path)
                         .onAppear {
-                            showTabBar = true
+                            viewModel.showTabBar = true
                         }
                 case .tripFilterView:
-                    TripFilterView(viewModel: tripsViewModel)
+                    TripFilterView(viewModel: viewModel.tripsViewModelInstance)
                         .onAppear {
-                            showTabBar = true
+                            viewModel.showTabBar = true
                         }
                 case .carrierDetail(let carrier):
                     CarrierInfoView(carrier: carrier)
                         .onAppear {
-                            showTabBar = true
+                            viewModel.showTabBar = true
                         }
                 case .storiesView:
-                    StoriesView(stories: $stories, isPresented: $isStoriesViewPresented, currentStoryIndex: currentStoryIndex, currentProgress: $currentProgress)
+                    StoriesView(stories: $viewModel.stories, isPresented: $viewModel.isStoriesViewPresented, currentStoryIndex: viewModel.currentStoryIndex, currentProgress: $viewModel.currentProgress)
                         .onAppear {
-                            showTabBar = true
+                            viewModel.showTabBar = true
                         }
                 }
                 

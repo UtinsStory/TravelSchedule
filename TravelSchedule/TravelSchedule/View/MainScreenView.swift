@@ -17,7 +17,7 @@ struct MainScreenView: View {
         NavigationStack {
             TabView {
                 Group {
-                    ScheduleView(showTabBar: $showTabBar)
+                    ScheduleView()
                         .tabItem {
                             Image("ScheduleTabBarActive")
                                 .renderingMode(.template)
