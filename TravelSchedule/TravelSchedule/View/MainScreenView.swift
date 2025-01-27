@@ -12,6 +12,8 @@ struct MainScreenView: View {
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some View {
+        let settingsViewModel = SettingsViewModel(isDarkMode: isDarkMode)
+        
         NavigationStack {
             TabView {
                 Group {
@@ -20,7 +22,7 @@ struct MainScreenView: View {
                             Image("ScheduleTabBarActive")
                                 .renderingMode(.template)
                         }
-                    SettingsView(isDarkMode: $isDarkMode)
+                    SettingsView(viewModel: settingsViewModel)
                         .tabItem {
                             Image("SettingsTabBarActive")
                                 .renderingMode(.template)
@@ -39,6 +41,12 @@ struct MainScreenView: View {
                 } else {
                     showTabBarAgain()
                 }
+            }
+            .onChange(of: isDarkMode) { newValue in
+                settingsViewModel.isDarkMode = newValue
+            }
+            .onChange(of: settingsViewModel.isDarkMode) { newValue in
+                isDarkMode = newValue
             }
         }
     }
