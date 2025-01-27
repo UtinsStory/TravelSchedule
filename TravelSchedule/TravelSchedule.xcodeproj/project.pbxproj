@@ -13,6 +13,17 @@
 		BF5380122D2C0DA400575C64 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5380112D2C0DA400575C64 /* SettingsView.swift */; };
 		BF85BC602D3E694700ED40C9 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */; };
 		BF85BC632D3E6CC300ED40C9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */; };
+		BF85BC742D40FD2E00ED40C9 /* StoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC732D40FD2E00ED40C9 /* StoryModel.swift */; };
+		BF85BC762D40FD6300ED40C9 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC752D40FD6300ED40C9 /* StoryView.swift */; };
+		BF85BC792D41008F00ED40C9 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC782D41008600ED40C9 /* Font+Extension.swift */; };
+		BF85BC7C2D4102C500ED40C9 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC7B2D4102C500ED40C9 /* CloseButton.swift */; };
+		BF85BC7F2D41031100ED40C9 /* StoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC7E2D41031100ED40C9 /* StoriesView.swift */; };
+		BF85BC852D4246C700ED40C9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC842D4246C700ED40C9 /* ProgressBar.swift */; };
+		BF85BC8F2D424BCB00ED40C9 /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC8E2D424BCB00ED40C9 /* TimerConfiguration.swift */; };
+		BF85BC972D42501F00ED40C9 /* TimerConfiguration+Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC962D42501F00ED40C9 /* TimerConfiguration+Calculations.swift */; };
+		BF85BC992D42506D00ED40C9 /* StoriesProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC982D42506D00ED40C9 /* StoriesProgressBar.swift */; };
+		BF85BC9B2D4250B700ED40C9 /* StoriesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC9A2D4250B700ED40C9 /* StoriesTabView.swift */; };
+		BF85BC9F2D4253F500ED40C9 /* StoryPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF85BC9E2D4253F500ED40C9 /* StoryPreview.swift */; };
 		BFB7E0B92D311E8100EEC20B /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0B82D311E8100EEC20B /* CitiesViewModel.swift */; };
 		BFB7E0BE2D311F9700EEC20B /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0BD2D311F9700EEC20B /* CityModel.swift */; };
 		BFB7E0C12D31235200EEC20B /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E0C02D31235200EEC20B /* SearchBarView.swift */; };
@@ -61,6 +72,17 @@
 		BF5380112D2C0DA400575C64 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		BF85BC732D40FD2E00ED40C9 /* StoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryModel.swift; sourceTree = "<group>"; };
+		BF85BC752D40FD6300ED40C9 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
+		BF85BC782D41008600ED40C9 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		BF85BC7B2D4102C500ED40C9 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		BF85BC7E2D41031100ED40C9 /* StoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesView.swift; sourceTree = "<group>"; };
+		BF85BC842D4246C700ED40C9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		BF85BC8E2D424BCB00ED40C9 /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
+		BF85BC962D42501F00ED40C9 /* TimerConfiguration+Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimerConfiguration+Calculations.swift"; sourceTree = "<group>"; };
+		BF85BC982D42506D00ED40C9 /* StoriesProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesProgressBar.swift; sourceTree = "<group>"; };
+		BF85BC9A2D4250B700ED40C9 /* StoriesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesTabView.swift; sourceTree = "<group>"; };
+		BF85BC9E2D4253F500ED40C9 /* StoryPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryPreview.swift; sourceTree = "<group>"; };
 		BFB7E0B82D311E8100EEC20B /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		BFB7E0BD2D311F9700EEC20B /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		BFB7E0C02D31235200EEC20B /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -116,6 +138,7 @@
 		BF5380032D2C060000575C64 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF85BC722D40FC4F00ED40C9 /* Stories */,
 				BF5380042D2C061400575C64 /* SplashScreenView.swift */,
 				BF5380062D2C066700575C64 /* MainScreenView.swift */,
 				BF53800F2D2C0D9700575C64 /* ScheduleView.swift */,
@@ -132,6 +155,28 @@
 				BFB7E0EC2D390BEC00EEC20B /* WebView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BF85BC722D40FC4F00ED40C9 /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				BF85BC752D40FD6300ED40C9 /* StoryView.swift */,
+				BF85BC7E2D41031100ED40C9 /* StoriesView.swift */,
+				BF85BC842D4246C700ED40C9 /* ProgressBar.swift */,
+				BF85BC982D42506D00ED40C9 /* StoriesProgressBar.swift */,
+				BF85BC9A2D4250B700ED40C9 /* StoriesTabView.swift */,
+				BF85BC9E2D4253F500ED40C9 /* StoryPreview.swift */,
+			);
+			path = Stories;
+			sourceTree = "<group>";
+		};
+		BF85BC922D424FF500ED40C9 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				BF85BC8E2D424BCB00ED40C9 /* TimerConfiguration.swift */,
+				BF85BC962D42501F00ED40C9 /* TimerConfiguration+Calculations.swift */,
+			);
+			path = Algorithms;
 			sourceTree = "<group>";
 		};
 		BFB7E0B52D311E6B00EEC20B /* ViewModel */ = {
@@ -153,6 +198,7 @@
 				BFB7E0CF2D312ECC00EEC20B /* TripModel.swift */,
 				BFB7E0D12D312ED900EEC20B /* CarrierModel.swift */,
 				BF85BC5F2D3E694700ED40C9 /* ErrorType.swift */,
+				BF85BC732D40FD2E00ED40C9 /* StoryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,11 +264,14 @@
 		BFDAE4182D0AF19700ECAA6F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BF85BC922D424FF500ED40C9 /* Algorithms */,
+				BF85BC782D41008600ED40C9 /* Font+Extension.swift */,
 				BF85BC622D3E6CAE00ED40C9 /* Reachability.swift */,
 				BFDAE4192D0AF1A700ECAA6F /* Constants.swift */,
 				BFB7E0C62D312C0600EEC20B /* Destination.swift */,
 				BFB7E0CD2D312EA200EEC20B /* Mock.swift */,
 				BFB7E0D92D39044C00EEC20B /* CustomBackButton.swift */,
+				BF85BC7B2D4102C500ED40C9 /* CloseButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -312,24 +361,32 @@
 			files = (
 				BFB7E0BE2D311F9700EEC20B /* CityModel.swift in Sources */,
 				BFB7E0D02D312ECC00EEC20B /* TripModel.swift in Sources */,
+				BF85BC9F2D4253F500ED40C9 /* StoryPreview.swift in Sources */,
 				BF85BC632D3E6CC300ED40C9 /* Reachability.swift in Sources */,
 				BF5380122D2C0DA400575C64 /* SettingsView.swift in Sources */,
+				BF85BC7F2D41031100ED40C9 /* StoriesView.swift in Sources */,
 				BFB7E0DE2D3905EC00EEC20B /* TripsListView.swift in Sources */,
 				BFDAE4172D0AEFE400ECAA6F /* CarrierService.swift in Sources */,
 				BFDAE41A2D0AF1A700ECAA6F /* Constants.swift in Sources */,
+				BF85BC792D41008F00ED40C9 /* Font+Extension.swift in Sources */,
 				BFB7E0DC2D3904FB00EEC20B /* StationsListView.swift in Sources */,
 				BFB7E0E02D39060500EEC20B /* TripsRowView.swift in Sources */,
 				BFB7E0EA2D390BCC00EEC20B /* WebContentView.swift in Sources */,
 				BFDAE3F52D08486500ECAA6F /* ContentView.swift in Sources */,
+				BF85BC852D4246C700ED40C9 /* ProgressBar.swift in Sources */,
+				BF85BC8F2D424BCB00ED40C9 /* TimerConfiguration.swift in Sources */,
 				BFB7E0E42D3906C100EEC20B /* CarrierInfoView.swift in Sources */,
 				BF5380102D2C0D9700575C64 /* ScheduleView.swift in Sources */,
 				BFDAE40C2D0AE6AC00ECAA6F /* ScheduleService.swift in Sources */,
 				BF85BC602D3E694700ED40C9 /* ErrorType.swift in Sources */,
 				BFDAE40A2D08522900ECAA6F /* SearchService.swift in Sources */,
+				BF85BC972D42501F00ED40C9 /* TimerConfiguration+Calculations.swift in Sources */,
 				BFDAE4152D0AEECB00ECAA6F /* NearestSettlementService.swift in Sources */,
+				BF85BC7C2D4102C500ED40C9 /* CloseButton.swift in Sources */,
 				BFB7E0CE2D312EA200EEC20B /* Mock.swift in Sources */,
 				BFB7E0C72D312C0600EEC20B /* Destination.swift in Sources */,
 				BFB7E0E22D39064A00EEC20B /* TripFilterView.swift in Sources */,
+				BF85BC9B2D4250B700ED40C9 /* StoriesTabView.swift in Sources */,
 				BFB7E0D82D3902C300EEC20B /* StationsViewModel.swift in Sources */,
 				BFB7E0C12D31235200EEC20B /* SearchBarView.swift in Sources */,
 				BFDAE4082D084AB300ECAA6F /* NearestStationService.swift in Sources */,
@@ -340,14 +397,17 @@
 				BFB7E0CA2D312CD200EEC20B /* StationModel.swift in Sources */,
 				BFDAE4132D0AEDF000ECAA6F /* StationsListService.swift in Sources */,
 				BFDAE4112D0AECB500ECAA6F /* CopyrightService.swift in Sources */,
+				BF85BC762D40FD6300ED40C9 /* StoryView.swift in Sources */,
 				BFB7E0D22D312ED900EEC20B /* CarrierModel.swift in Sources */,
 				BFB7E0D62D3902A100EEC20B /* CityListView.swift in Sources */,
+				BF85BC992D42506D00ED40C9 /* StoriesProgressBar.swift in Sources */,
 				BFB7E0CC2D312E7100EEC20B /* TripsViewModel.swift in Sources */,
 				BF5380052D2C061400575C64 /* SplashScreenView.swift in Sources */,
 				BFB7E0DA2D39044C00EEC20B /* CustomBackButton.swift in Sources */,
 				BFB7E0ED2D390BEC00EEC20B /* WebView.swift in Sources */,
 				BFB7E0B92D311E8100EEC20B /* CitiesViewModel.swift in Sources */,
 				BF5380072D2C066700575C64 /* MainScreenView.swift in Sources */,
+				BF85BC742D40FD2E00ED40C9 /* StoryModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +557,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,7 +592,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

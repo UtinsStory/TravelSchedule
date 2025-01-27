@@ -14,11 +14,32 @@ struct ScheduleView: View {
     @StateObject var citiesViewModel = StationsViewModel()
     @StateObject var tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
     @Binding var showTabBar: Bool
+    @State private var selectedStory: StoryModel?
+    @State private var currentStoryIndex: Int = 0
+    @State private var stories: [StoryModel] = MockData.stories
+    @State private var isStoriesViewPresented: Bool = false
+    @State private var currentProgress: CGFloat = 0.0
     
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
                 Spacer()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(stories) { story in
+                            StoryPreview(story: story)
+                                .onTapGesture {
+                                    selectedStory = story
+                                    currentStoryIndex = stories.firstIndex(where: { $0.id == story.id }) ?? 0
+                                    path.append(.storiesView)
+                                    isStoriesViewPresented = true
+                                }
+                        }
+                    }
+                    .padding()
+                }
+                .padding(.top, -310)
+                
                 ZStack {
                     Rectangle()
                         .fill(Color.ypBlue)
@@ -38,7 +59,7 @@ struct ScheduleView: View {
                                     .foregroundColor(.ypBlackUniversal)
                                     .simultaneousGesture(TapGesture().onEnded { showTabBar = false
                                         path.append(.cityListFrom)})
-                                    
+                                
                                 
                                 TextField("Куда", text: $toStation, prompt: Text("Куда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
@@ -48,7 +69,7 @@ struct ScheduleView: View {
                                     .foregroundColor(.ypBlackUniversal)
                                     .simultaneousGesture(TapGesture().onEnded { showTabBar = false
                                         path.append(.cityListTo)})
-
+                                
                             }
                         }
                         .cornerRadius(20)
@@ -65,7 +86,8 @@ struct ScheduleView: View {
                         Spacer()
                     }
                 }
-                .padding(16)
+                .padding()
+                .padding(.top, -120)
                 if !fromStation.isEmpty && !toStation.isEmpty {
                     NavigationLink(value: Destination.tripsListView) {
                         Text("Найти")
@@ -132,6 +154,11 @@ struct ScheduleView: View {
                         }
                 case .carrierDetail(let carrier):
                     CarrierInfoView(carrier: carrier)
+                        .onAppear {
+                            showTabBar = true
+                        }
+                case .storiesView:
+                    StoriesView(stories: $stories, isPresented: $isStoriesViewPresented, currentStoryIndex: currentStoryIndex, currentProgress: $currentProgress)
                         .onAppear {
                             showTabBar = true
                         }
