@@ -40,7 +40,7 @@ struct ProgressBar: View {
     }
 }
 
-struct MaskFragmentView: View {
+private struct MaskFragmentView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: .progressBarCornerRadius)
             .fixedSize(horizontal: false, vertical: true)
@@ -49,7 +49,7 @@ struct MaskFragmentView: View {
     }
 }
 
-struct MaskView: View {
+private struct MaskView: View {
     let numberOfSections: Int
     
     var body: some View {

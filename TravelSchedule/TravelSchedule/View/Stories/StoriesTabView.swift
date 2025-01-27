@@ -24,7 +24,7 @@ struct StoriesTabView: View {
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
 
-    func didTapStory() {
+    private func didTapStory() {
         currentStoryIndex = min(currentStoryIndex + 1, stories.count - 1)
     }
 }
