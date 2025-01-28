@@ -7,9 +7,16 @@
 
 import SwiftUI
 import Combine
+import OpenAPIURLSession
 
 struct ScheduleView: View {
-    @ObservedObject var viewModel = ScheduleViewModel()
+    @ObservedObject var viewModel: ScheduleViewModel
+    
+    init() {
+        let client = Client(serverURL: try! Servers.Server1.url(), transport: URLSessionTransport())
+        let networkClient = NetworkClient(client: client, apikey: Constants.apiKey)
+        _viewModel = ObservedObject(wrappedValue: ScheduleViewModel(networkClient: networkClient))
+    }
     
     var body: some View {
         NavigationStack(path: $viewModel.path) {
@@ -98,14 +105,14 @@ struct ScheduleView: View {
                 case .cityListFrom:
                     CityListView(selectAction: { selectedStation in
                         viewModel.updateStation(selectedStation, isFrom: true)
-                    }, path: $viewModel.path)
+                    }, path: $viewModel.path, networkClient: viewModel.citiesViewModelInstance.networkClient)
                     .onAppear {
                         viewModel.showTabBar = true
                     }
                 case .cityListTo:
                     CityListView(selectAction: { selectedStation in
                         viewModel.updateStation(selectedStation, isFrom: false)
-                    }, path: $viewModel.path)
+                    }, path: $viewModel.path, networkClient: viewModel.citiesViewModelInstance.networkClient)
                     .onAppear {
                         viewModel.showTabBar = true
                     }

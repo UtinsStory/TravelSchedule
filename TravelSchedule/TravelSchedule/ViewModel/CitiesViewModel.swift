@@ -6,16 +6,31 @@
 //
 
 import Foundation
+import Combine
 
+@MainActor
 final class CitiesViewModel: ObservableObject {
     @Published var cities: [CityModel] = []
+    @Published var isLoading: Bool = false
     
-    init() {
-        loadCities()
+    public let networkClient: NetworkClient
+    init(networkClient: NetworkClient) {
+        self.networkClient = networkClient
     }
     
-    func loadCities() {
-        cities = MockData.cities
+    func loadCities() async {
+        isLoading = true
+        defer { isLoading = false }
+        
+        do {
+            let cities = try await networkClient.fetchStations()
+            DispatchQueue.main.async {
+                self.cities = cities
+            }
+        } catch {
+            ErrorView(errorType: .noInternet)
+            print("Error loading cities: \(error)")
+        }
     }
     
     func city(for station: String) -> String {
@@ -26,5 +41,4 @@ final class CitiesViewModel: ObservableObject {
         }
         return ""
     }
-    
 }

@@ -9,57 +9,70 @@ import SwiftUI
 
 struct CityListView: View {
     @State private var searchString = ""
-    @ObservedObject private var viewModel = CitiesViewModel()
-    let selectAction: (String) -> Void
+    @StateObject private var viewModel: CitiesViewModel
+    var selectAction: (String) -> Void
     @Binding var path: [Destination]
     let reachability = Reachability()
     
+    init(selectAction: @escaping (String) -> Void, path: Binding<[Destination]>, networkClient: NetworkClient) {
+        _viewModel = StateObject(wrappedValue: CitiesViewModel(networkClient: networkClient))
+        self.selectAction = selectAction
+        self._path = path
+    }
+    
     var body: some View {
-        if reachability.isConnectedToNetwork() == true {
-            VStack {
-                SearchBarView(searchText: $searchString)
-                if filteredCities.isEmpty {
-                    Spacer()
-                    Text("Город не найден")
-                        .foregroundColor(.ypBlack)
-                        .font(.system(size: 24, weight: .bold))
-                        .padding()
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(filteredCities) { city in
-                            Button(action: {
-                                path.append(.stationList(city: city.title))
-                            }) {
-                                HStack {
-                                    Text(city.title)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.ypBlack)
-                                }
-                                .contentShape(Rectangle())
+        
+        VStack {
+            SearchBarView(searchText: $searchString)
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+                Spacer()
+            } else if filteredCities.isEmpty {
+                Spacer()
+                Text("Город не найден")
+                    .foregroundColor(.ypBlack)
+                    .font(.system(size: 24, weight: .bold))
+                    .padding()
+                Spacer()
+            } else {
+                List {
+                    ForEach(filteredCities) { city in
+                        Button(action: {
+                            path.append(.stationList(city: city.title))
+                        }) {
+                            HStack {
+                                Text(city.title)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.ypBlack)
                             }
-                            .buttonStyle(PlainButtonStyle())
-                            .listRowBackground(Color.ypWhite)
+                            .contentShape(Rectangle())
                         }
-                        .listRowSeparator(.hidden)
+                        .buttonStyle(PlainButtonStyle())
+                        .listRowBackground(Color.ypWhite)
                     }
-                    .listStyle(.plain)
+                    .listRowSeparator(.hidden)
                 }
+                .listStyle(.plain)
             }
-            .background(.ypWhite)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: CustomBackButton())
-            .navigationTitle("Выбор Города")
-        } else {
-            ErrorView(errorType: .noInternet)
         }
+        .background(.ypWhite)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: CustomBackButton())
+        .navigationTitle("Выбор Города")
+        .task {
+            await viewModel.loadCities()
+        }
+        
     }
     
     var filteredCities: [CityModel] {
-            viewModel.cities.filter { city in
-                searchString.isEmpty || city.title.localizedCaseInsensitiveContains(searchString)
-            }
+        viewModel.cities.filter { city in
+            searchString.isEmpty || city.title.localizedCaseInsensitiveContains(searchString)
+        }
     }
 }
 

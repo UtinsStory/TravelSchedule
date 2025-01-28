@@ -19,8 +19,14 @@ final class ScheduleViewModel: ObservableObject {
     @Published var currentProgress: CGFloat = 0.0
     @Published var showTabBar: Bool = true
     
-    private let citiesViewModel = CitiesViewModel()
-    private let tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
+    private let citiesViewModel: CitiesViewModel
+    private let tripsViewModel: TripsViewModel
+    
+    @MainActor
+    init(networkClient: NetworkClient) {
+        self.citiesViewModel = CitiesViewModel(networkClient: networkClient)
+        self.tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
+    }
     
     func swapStations() {
         swap(&fromStation, &toStation)
