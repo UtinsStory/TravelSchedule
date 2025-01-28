@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct StationsListView: View {
-    @State private var searchString = ""
-    @State private var selectedStation: String?
-    var stations: [StationModel]
-    var selectAction: (String) -> Void
+    @ObservedObject var viewModel: StationsListViewModel
     
     var body: some View {
         VStack {
-            SearchBarView(searchText: $searchString)
-            if filteredStations.isEmpty {
+            SearchBarView(searchText: $viewModel.searchString)
+            if viewModel.filteredStations.isEmpty {
                 Spacer()
                 Text("Станция не найдена")
                     .foregroundColor(.ypBlack)
@@ -25,10 +22,9 @@ struct StationsListView: View {
                 Spacer()
             } else {
                 List {
-                    ForEach(filteredStations, id: \.self) { station in
+                    ForEach(viewModel.filteredStations, id: \.self) { station in
                         Button(action: {
-                            selectedStation = station.title
-                            selectAction(station.title)
+                            viewModel.selectStation(station.title)
                         }) {
                             HStack {
                                 Text(station.title)
@@ -53,10 +49,5 @@ struct StationsListView: View {
         .navigationTitle("Выбор Станции")
     }
     
-    var filteredStations: [StationModel] {
-        stations.filter { station in
-            searchString.isEmpty || station.title.localizedCaseInsensitiveContains(searchString)
-        }
-    }
 }
 

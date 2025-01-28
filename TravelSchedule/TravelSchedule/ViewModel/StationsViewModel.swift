@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 final class StationsViewModel: ObservableObject {
     @Published var cities: [CityModel] = []
     
