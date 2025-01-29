@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 final class ScheduleViewModel: ObservableObject {
     @Published var fromStation: String = ""
     @Published var toStation: String = ""

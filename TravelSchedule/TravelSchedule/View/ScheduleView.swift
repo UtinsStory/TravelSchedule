@@ -117,8 +117,7 @@ struct ScheduleView: View {
                         viewModel.showTabBar = true
                     }
                 case .stationList(let city):
-                    let stations = viewModel.citiesViewModelInstance.cities.first(where: { $0.title == city })?.stations ?? []
-                    StationsListView(viewModel: StationsListViewModel(stations: stations, selectAction: { station in
+                    StationsListView(viewModel: StationsListViewModel(stations: city.stations, selectAction: { station in
                         if viewModel.path.contains(.cityListFrom) {
                             viewModel.updateStation(station, isFrom: true)
                         } else {

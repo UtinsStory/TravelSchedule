@@ -6,25 +6,29 @@
 //
 
 import Foundation
+import Combine
 
-
+@MainActor
 final class StationsViewModel: ObservableObject {
-    @Published var cities: [CityModel] = []
+    @Published var searchString: String = ""
+    @Published var selectedStation: StationModel?
+    @Published var stations: [StationModel] = []
     
-    init() {
-        loadCities()
+    var selectAction: (StationModel) -> Void
+    
+    init(stations: [StationModel], selectAction: @escaping (StationModel) -> Void) {
+        self.stations = stations
+        self.selectAction = selectAction
     }
     
-    func loadCities() {
-            cities = MockData.cities
-    }
-    
-    func city(for station: String) -> String {
-        for city in cities {
-            if city.stations.contains(where: { $0.title == station }) {
-                return city.title
-            }
+    var filteredStations: [StationModel] {
+        stations.filter { station in
+            searchString.isEmpty || station.title.localizedCaseInsensitiveContains(searchString)
         }
-        return ""
+    }
+    
+    func selectStation(_ station: StationModel) {
+        selectedStation = station
+        selectAction(station)
     }
 }

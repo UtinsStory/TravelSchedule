@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Destination: Hashable {
+enum Destination: Hashable, Equatable {
     case cityListFrom
     case cityListTo
-    case stationList(city: String)
+    case stationList(city: CityModel)
     case tripsListView
     case tripFilterView
     case carrierDetail(CarrierModel)

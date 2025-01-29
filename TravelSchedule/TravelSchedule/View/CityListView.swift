@@ -41,7 +41,9 @@ struct CityListView: View {
                 List {
                     ForEach(filteredCities) { city in
                         Button(action: {
-                            path.append(.stationList(city: city.title))
+                            if let city = viewModel.cities.first(where: { $0.title == city.title }) {
+                                path.append(.stationList(city: city))
+                            }
                         }) {
                             HStack {
                                 Text(city.title)
@@ -64,7 +66,9 @@ struct CityListView: View {
         .navigationBarItems(leading: CustomBackButton())
         .navigationTitle("Выбор Города")
         .task {
-            await viewModel.loadCities()
+            if viewModel.cities.isEmpty {
+                await viewModel.loadCities()
+            }
         }
         
     }

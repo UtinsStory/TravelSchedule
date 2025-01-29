@@ -23,10 +23,8 @@ final class CitiesViewModel: ObservableObject {
         defer { isLoading = false }
         
         do {
-            let cities = try await networkClient.fetchStations()
-            DispatchQueue.main.async {
-                self.cities = cities
-            }
+            let cities = try await networkClient.fetchCities()
+            self.cities = cities
         } catch {
             ErrorView(errorType: .noInternet)
             print("Error loading cities: \(error)")
