@@ -18,7 +18,7 @@ protocol SearchServiceProtocol {
     ) async throws -> SearchResponse
 }
 
-final class SearchService: SearchServiceProtocol {
+actor SearchService: SearchServiceProtocol {
     
     private let client: Client
     private let apikey: String
@@ -33,7 +33,8 @@ final class SearchService: SearchServiceProtocol {
             apikey: apikey,
             from: from,
             to: to,
-            date: date))
+            date: date,
+            transfers: true))
         
         return try response.ok.body.json
     }

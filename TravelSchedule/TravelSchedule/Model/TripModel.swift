@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TripModel: Identifiable {
+struct TripModel: Identifiable, Sendable {
     let id = UUID()
     let departureTime: String
     let arrivalTime: String

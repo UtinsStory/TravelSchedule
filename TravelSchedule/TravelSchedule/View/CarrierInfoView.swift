@@ -8,23 +8,37 @@
 import SwiftUI
 
 struct CarrierInfoView: View {
-    let carrier: CarrierModel
+    var carrier: CarrierModel
     
     var body: some View {
         ZStack {
             Color.ypWhite.ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
-                Image(carrier.logoName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 343, height: 104)
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color.white)
-                    )
-                    .cornerRadius(24)
-                    .padding(.top, 16)
+                if let logoUrl = URL(string: carrier.logoName) {
+                    AsyncImage(url: logoUrl) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 343, height: 104)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.white)
+                                )
+                                .cornerRadius(24)
+                                .padding(.top, 16)
+                        } else {
+                            Rectangle()
+                                .frame(width: 343, height: 104)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.white)
+                                )
+                                .cornerRadius(24)
+                        }
+                    }
+                }
                 
                 VStack(alignment: .leading) {
                     Text(carrier.name)
@@ -60,9 +74,3 @@ struct CarrierInfoView: View {
     }
 }
 
-struct CarrierDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let carrier = CarrierModel(name: "ОАО РЖД", logoName: "RZD", email: "example@example.com", phone: "+1234567890")
-        return CarrierInfoView(carrier: carrier)
-    }
-}

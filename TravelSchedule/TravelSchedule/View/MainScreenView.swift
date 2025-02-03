@@ -12,15 +12,17 @@ struct MainScreenView: View {
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some View {
+        let settingsViewModel = SettingsViewModel(isDarkMode: isDarkMode)
+        
         NavigationStack {
             TabView {
                 Group {
-                    ScheduleView(showTabBar: $showTabBar)
+                    ScheduleView()
                         .tabItem {
                             Image("ScheduleTabBarActive")
                                 .renderingMode(.template)
                         }
-                    SettingsView(isDarkMode: $isDarkMode)
+                    SettingsView(viewModel: settingsViewModel)
                         .tabItem {
                             Image("SettingsTabBarActive")
                                 .renderingMode(.template)
@@ -33,12 +35,18 @@ struct MainScreenView: View {
                 UITabBar.appearance().backgroundColor = .ypWhite
             }
             .tint(.ypBlack)
-            .onChange(of: showTabBar) { newValue in
+            .onChange(of: showTabBar) { _, newValue in
                 if !newValue {
                     hideTabBar()
                 } else {
                     showTabBarAgain()
                 }
+            }
+            .onChange(of: isDarkMode) { _, newValue in
+                settingsViewModel.isDarkMode = newValue
+            }
+            .onChange(of: settingsViewModel.isDarkMode) { _, newValue in
+                isDarkMode = newValue
             }
         }
     }
