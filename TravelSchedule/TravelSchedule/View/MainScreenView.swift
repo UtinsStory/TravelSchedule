@@ -35,17 +35,17 @@ struct MainScreenView: View {
                 UITabBar.appearance().backgroundColor = .ypWhite
             }
             .tint(.ypBlack)
-            .onChange(of: showTabBar) { newValue in
+            .onChange(of: showTabBar) { _, newValue in
                 if !newValue {
                     hideTabBar()
                 } else {
                     showTabBarAgain()
                 }
             }
-            .onChange(of: isDarkMode) { newValue in
+            .onChange(of: isDarkMode) { _, newValue in
                 settingsViewModel.isDarkMode = newValue
             }
-            .onChange(of: settingsViewModel.isDarkMode) { newValue in
+            .onChange(of: settingsViewModel.isDarkMode) { _, newValue in
                 isDarkMode = newValue
             }
         }

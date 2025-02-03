@@ -17,7 +17,7 @@ protocol ScheduleServiceProtocol {
     ) async throws -> ScheduleResponse
 }
 
-final class ScheduleService: ScheduleServiceProtocol {
+actor ScheduleService: ScheduleServiceProtocol {
     private let client: Client
     private let apiKey: String
     

@@ -14,6 +14,7 @@ final class CitiesViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     public let networkClient: NetworkClient
+    
     init(networkClient: NetworkClient) {
         self.networkClient = networkClient
     }
@@ -29,14 +30,5 @@ final class CitiesViewModel: ObservableObject {
             ErrorView(errorType: .noInternet)
             print("Error loading cities: \(error)")
         }
-    }
-    
-    func city(for station: String) -> String {
-        for city in cities {
-            if city.stations.contains(where: { $0.title == station }) {
-                return city.title
-            }
-        }
-        return ""
     }
 }

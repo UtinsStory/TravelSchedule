@@ -10,8 +10,8 @@ import Combine
 
 @MainActor
 final class ScheduleViewModel: ObservableObject {
-    @Published var fromStation: String = ""
-    @Published var toStation: String = ""
+    @Published var fromStation: StationModel?
+    @Published var toStation: StationModel?
     @Published var path: [Destination] = []
     @Published var selectedStory: StoryModel?
     @Published var currentStoryIndex: Int = 0
@@ -23,14 +23,15 @@ final class ScheduleViewModel: ObservableObject {
     private let citiesViewModel: CitiesViewModel
     private let tripsViewModel: TripsViewModel
     
-    @MainActor
     init(networkClient: NetworkClient) {
         self.citiesViewModel = CitiesViewModel(networkClient: networkClient)
-        self.tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel())
+        self.tripsViewModel = TripsViewModel(carriersViewModel: CarriersViewModel(), networkClient: networkClient)
     }
     
     func swapStations() {
         swap(&fromStation, &toStation)
+        swap(&tripsViewModel.fromStation, &tripsViewModel.toStation)
+        swap(&tripsViewModel.fromStationCode, &tripsViewModel.toStationCode)
     }
     
     func selectStory(_ story: StoryModel) {
@@ -46,11 +47,15 @@ final class ScheduleViewModel: ObservableObject {
         path.append(isFrom ? .cityListFrom : .cityListTo)
     }
     
-    func updateStation(_ station: String, isFrom: Bool) {
+    func updateStation(_ station: StationModel, isFrom: Bool) {
         if isFrom {
             fromStation = station
+            tripsViewModel.fromStation = station
+            tripsViewModel.fromStationCode = station.code
         } else {
             toStation = station
+            tripsViewModel.toStation = station
+            tripsViewModel.toStationCode = station.code
         }
         showTabBar = true
         path.removeLast()
@@ -61,7 +66,7 @@ final class ScheduleViewModel: ObservableObject {
     }
     
     var isSearchButtonEnabled: Bool {
-        !fromStation.isEmpty && !toStation.isEmpty
+        fromStation != nil && toStation != nil
     }
     
     var tripsViewModelInstance: TripsViewModel {

@@ -46,7 +46,9 @@ struct ScheduleView: View {
                                 .fill(Color.ypWhiteUniversal)
                                 .frame(height: 100)
                             VStack {
-                                TextField("Откуда", text: $viewModel.fromStation, prompt: Text("Откуда").foregroundColor(.ypGray))
+                                TextField("Откуда", text: Binding(get: {
+                                    viewModel.fromStation?.title ?? ""
+                                }, set: { _ in }), prompt: Text("Откуда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
                                     .frame(height: 40)
                                     .background(Color.ypWhiteUniversal)
@@ -55,7 +57,9 @@ struct ScheduleView: View {
                                     .simultaneousGesture(TapGesture().onEnded { viewModel.selectCityList(isFrom: true)})
                                 
                                 
-                                TextField("Куда", text: $viewModel.toStation, prompt: Text("Куда").foregroundColor(.ypGray))
+                                TextField("Куда", text: Binding(get: {
+                                    viewModel.toStation?.title ?? ""
+                                }, set: { _ in }), prompt: Text("Куда").foregroundColor(.ypGray))
                                     .padding(.leading, 10)
                                     .frame(height: 40)
                                     .background(Color.ypWhiteUniversal)
@@ -103,16 +107,16 @@ struct ScheduleView: View {
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .cityListFrom:
-                    CityListView(selectAction: { selectedStation in
+                    CityListView(viewModel: viewModel.citiesViewModelInstance, selectAction: { selectedStation in
                         viewModel.updateStation(selectedStation, isFrom: true)
-                    }, path: $viewModel.path, networkClient: viewModel.citiesViewModelInstance.networkClient)
+                    }, path: $viewModel.path)
                     .onAppear {
                         viewModel.showTabBar = true
                     }
                 case .cityListTo:
-                    CityListView(selectAction: { selectedStation in
+                    CityListView(viewModel: viewModel.citiesViewModelInstance, selectAction: { selectedStation in
                         viewModel.updateStation(selectedStation, isFrom: false)
-                    }, path: $viewModel.path, networkClient: viewModel.citiesViewModelInstance.networkClient)
+                    }, path: $viewModel.path)
                     .onAppear {
                         viewModel.showTabBar = true
                     }
@@ -129,9 +133,7 @@ struct ScheduleView: View {
                         viewModel.showTabBar = true
                     }
                 case .tripsListView:
-                    let fromCity = viewModel.citiesViewModelInstance.city(for: viewModel.fromStation)
-                    let toCity = viewModel.citiesViewModelInstance.city(for: viewModel.toStation)
-                    TripsListView(viewModel: viewModel.tripsViewModelInstance, fromCity: fromCity, fromStation: viewModel.fromStation, toCity: toCity, toStation: viewModel.toStation, path: $viewModel.path)
+                    TripsListView(viewModel: viewModel.tripsViewModelInstance, path: $viewModel.path)
                         .onAppear {
                             viewModel.showTabBar = true
                         }

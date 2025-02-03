@@ -9,13 +9,12 @@ import SwiftUI
 
 struct CityListView: View {
     @State private var searchString = ""
-    @StateObject private var viewModel: CitiesViewModel
-    var selectAction: (String) -> Void
+    @ObservedObject private var viewModel: CitiesViewModel
+    var selectAction: (StationModel) -> Void
     @Binding var path: [Destination]
-    let reachability = Reachability()
     
-    init(selectAction: @escaping (String) -> Void, path: Binding<[Destination]>, networkClient: NetworkClient) {
-        _viewModel = StateObject(wrappedValue: CitiesViewModel(networkClient: networkClient))
+    init(viewModel: CitiesViewModel, selectAction: @escaping (StationModel) -> Void, path: Binding<[Destination]>) {
+        self.viewModel = viewModel
         self.selectAction = selectAction
         self._path = path
     }

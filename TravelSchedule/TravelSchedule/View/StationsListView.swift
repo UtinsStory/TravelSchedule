@@ -24,7 +24,7 @@ struct StationsListView: View {
                 List {
                     ForEach(viewModel.filteredStations, id: \.self) { station in
                         Button(action: {
-                            viewModel.selectStation(station.title)
+                            viewModel.selectStation(station)
                         }) {
                             HStack {
                                 Text(station.title)
