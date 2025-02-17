@@ -19,17 +19,27 @@ struct TripRowView: View {
                 .cornerRadius(24)
             VStack{
                 HStack{
-                    Image(trip.carrier.logoName)
-                        .resizable()
-                        .cornerRadius(12)
-                        .frame(width: 38, height: 38)
-                        .padding(.leading, 16)
+                    AsyncImage(url: URL(string: trip.carrier.logoName)) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .cornerRadius(12)
+                                .frame(width: 38, height: 38)
+                                .padding(.leading, 16)
+                        } else {
+                            Rectangle()
+                                .foregroundColor(.gray)
+                                .cornerRadius(12)
+                                .frame(width: 38, height: 38)
+                                .padding(.leading, 16)
+                        }
+                    }
                     VStack(alignment: .leading) {
                         Text(trip.carrier.name)
                             .font(.system(size: 17))
                             .foregroundStyle(.ypBlackUniversal)
                         if trip.hasTransfers {
-                            Text("С пересадкой в Костроме")
+                            Text("С пересадкой")
                                 .font(.system(size: 12))
                                 .foregroundStyle(.ypRed)
                         }

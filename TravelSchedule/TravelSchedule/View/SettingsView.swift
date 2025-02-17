@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var isDarkMode: Bool
-    let termsOfServiceURLString = "https://yandex.ru/legal/practicum_offer/"
+    @ObservedObject var viewModel: SettingsViewModel
     
     var body: some View {
         VStack(spacing: 0) {
-            Toggle("Темная тема", isOn: $isDarkMode)
+            Toggle("Темная тема", isOn: $viewModel.isDarkMode)
                 .padding()
                 .tint(.ypBlue)
-            if let url = URL(string: termsOfServiceURLString) {
+            if let url = viewModel.termsOfServiceURL {
                 NavigationLink(destination: WebContentView(url: url)) {
                     HStack {
                         Text("Пользовательское соглашение")
@@ -42,8 +41,8 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsTabView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        MainScreenView()
+        SettingsView(viewModel: SettingsViewModel(isDarkMode: false))
     }
 }

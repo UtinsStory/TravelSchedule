@@ -9,19 +9,19 @@ import SwiftUI
 
 struct TripsListView: View {
     @ObservedObject var viewModel: TripsViewModel
-    var fromCity: String
-    var fromStation: String
-    var toCity: String
-    var toStation: String
     @Binding var path: [Destination]
     
     var body: some View {
         VStack {
-            Text("\(fromCity) (\(fromStation)) → \(toCity) (\(toStation))")
+            Text("\(viewModel.fromStation?.title ?? "") → \(viewModel.toStation?.title ?? "")")
                 .font(.system(size: 24, weight: .bold))
                 .padding()
             
-            if viewModel.filteredTrips.isEmpty {
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else if viewModel.filteredTrips.isEmpty {
                 Spacer()
                 Text("Вариантов нет")
                     .font(.system(size: 24, weight: .bold))
@@ -64,6 +64,11 @@ struct TripsListView: View {
         .background(.ypWhite)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: CustomBackButton())
+        .task {
+            if viewModel.filteredTrips.isEmpty {
+                await viewModel.loadTrips()
+            }
+        }
     }
 }
 

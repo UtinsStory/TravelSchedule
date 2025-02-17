@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CityModel: Identifiable {
+struct CityModel: Identifiable, Hashable, Sendable {
     let id = UUID()
     let title: String
     let stations: [StationModel]

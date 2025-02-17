@@ -13,7 +13,7 @@ protocol CarrierServiceProtocol {
     func getCarrierInfo(code: String) async throws -> Carriers
 }
 
-final class CarrierService: CarrierServiceProtocol {
+actor CarrierService: CarrierServiceProtocol {
     private let client: Client
     private let apikey: String
     

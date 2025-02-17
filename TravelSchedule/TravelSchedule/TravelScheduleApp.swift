@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct TravelScheduleApp: App {
-    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some Scene {
         WindowGroup {

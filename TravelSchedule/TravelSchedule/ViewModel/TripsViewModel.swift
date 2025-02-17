@@ -6,22 +6,42 @@
 //
 
 import Foundation
+import Combine
 
+@MainActor
 final class TripsViewModel: ObservableObject {
     @Published var trips: [TripModel] = []
     @Published var filteredTrips: [TripModel] = []
     @Published var filtersApplied: Bool = false
+    @Published var fromStation: StationModel?
+    @Published var toStation: StationModel?
+    @Published var fromStationCode: String?
+    @Published var toStationCode: String?
+    @Published var isLoading: Bool = false
     
     private let carriersViewModel: CarriersViewModel
+    public let networkClient: NetworkClient
     
-    init(carriersViewModel: CarriersViewModel) {
+    init(carriersViewModel: CarriersViewModel, networkClient: NetworkClient) {
         self.carriersViewModel = carriersViewModel
-        loadTrips()
+        self.networkClient = networkClient
     }
     
-    func loadTrips() {
-        trips = MockData.trips
-        filteredTrips = trips
+    func loadTrips() async {
+        isLoading = true
+        defer {
+            isLoading = false
+        }
+        do {
+            let trips = try await networkClient.searchRoutes(from: fromStationCode ?? "", to: toStationCode ?? "", date: "2025-01-30")
+            DispatchQueue.main.async {
+                            self.trips = trips
+                            self.filteredTrips = trips
+                        }
+        } catch {
+            ErrorView(errorType: .noInternet)
+            print("Error loading trips: \(error)")
+        }
     }
     
     func applyFilters(selectedTimes: Set<TimeIntervalEnum>, showTransfers: Bool?) {

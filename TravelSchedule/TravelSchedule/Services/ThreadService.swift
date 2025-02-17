@@ -14,7 +14,7 @@ protocol ThreadServiceProtocol {
     func getThreadList(uid: String, date: String) async throws -> Thread
 }
 
-final class ThreadService: ThreadServiceProtocol {
+actor ThreadService: ThreadServiceProtocol {
     private let client: Client
     private let apiKey: String
     
